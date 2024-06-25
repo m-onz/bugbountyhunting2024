@@ -1,40 +1,48 @@
 
-# bug bounty hunting
+# bug bounty hunting with LLMs
 
 # about me
 
-bio goes here
+I work in the analytics and tagging team within NLE / IA.
+I like web application security and AI.
+I'm a software developer, engineer and sometimes a mad scientist. 
+I've always been interested in infosec but never employed as my main job.
+I like programming, distributed systems, linux, BSD & much more.
 
-<img src="/assistant.png" />
+# In my spare time:
 
-<img src="/assistant_answer.png" />
+I'm part of the algorave scene as an audio visual artist and VJ
+I run an algorithmic music event and make visuals using open source software: puredata.info
+I'm performing tonight at Corsica Studio's in London at an algorave
+I also make music the old fashion way and play many instruments including the drums and sax.
 
-<img src="/caido-main.png" />
+# Bug bounty hunting
 
-<img src="/caido.png" />
-
-<img src="/replicate.png" />
-
-<img src="/replicate_node.png" />
-
-<img src="/replicate_prompt.png" />
-
-<img src="/workflow.png" />
+I am a very unsuccessful bug bounty hunter using it to learn and understand web application security.
+I will tell all the ways I've been unsuccessful and hopefully it will help you avoid my mistakes!
 
 # bug bounty hunting and VDP
 
-what is it?
+I think it started as safe haven for ethical hackers to report security findings but has now turned into a vibrant eco-system.
 
-loads of programs / websites.
+There are bug bounty platforms that act as the mediators between companies and hackers.
 
-scope / reports / bounties
+The scope is clearly defined and genuine findings can earn big cash.
 
-out of scope ->
+Sounds appealing? 
+
+Certainly to me but its highly competitive.
+
+There are public and private programs
 
 # types of programs
 
 private
 public
+
+private programs are exclusive and only selected people get to do them.
+
+public programs are open to pretty much anybody.
 
 # differences between pentesting and bug bounty hunting
 
@@ -347,6 +355,21 @@ If-None-Match: "667b067b-4d67"
 
 
 
+<img src="/assistant.png" />
+
+<img src="/assistant_answer.png" />
+
+<img src="/caido-main.png" />
+
+<img src="/caido.png" />
+
+<img src="/replicate.png" />
+
+<img src="/replicate_node.png" />
+
+<img src="/replicate_prompt.png" />
+
+<img src="/workflow.png" />
 
 
 

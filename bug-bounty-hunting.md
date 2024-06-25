@@ -13,7 +13,6 @@ I like programming, distributed systems, linux, BSD & much more.
 
 I'm part of the algorave scene as an audio visual artist and VJ
 I run an algorithmic music event and make visuals using open source software: puredata.info
-I'm performing tonight at Corsica Studio's in London at an algorave
 I also make music the old fashion way and play many instruments including the drums and sax.
 
 # Bug bounty hunting
@@ -23,15 +22,11 @@ I will tell all the ways I've been unsuccessful and hopefully it will help you a
 
 # bug bounty hunting and VDP
 
-I think it started as safe haven for ethical hackers to report security findings but has now turned into a vibrant eco-system.
+I think it started as safe haven for ethical hackers to report security findings but has now turned into a vibrant eco-system & booming business.
 
 There are bug bounty platforms that act as the mediators between companies and hackers.
 
-The scope is clearly defined and genuine findings can earn big cash.
-
-Sounds appealing? 
-
-Certainly to me but its highly competitive.
+bug bounties are awarded to those who find serious issues.
 
 There are public and private programs
 
@@ -68,31 +63,39 @@ public programs are open to pretty much anybody.
 # pentesting approach 
 
 -> pick a target and use common tools: burp suite / etc / http proxy / browser forwarding proxy
-I've mainly been doing approach and I don't think its very effective
+follow a web application pentesting methodology.
 
 # cli driven lateral first scanning -> tomnomnom -> etc
+
+A lateral approach where you scan many targets not just a single one.
 
 * see [tomnom](https://github.com/tomnomnom/meg)
 * see nuclei https://github.com/projectdiscovery/nuclei
 
 # trands in bug bounty hunting
 
+* targeting api's (IDOR)
 * asset discovery, nuclei
 * automation, use of AI
 * monitor applications for changes (active monitoring)
 
 # AI powered approach 
 
-the subject of this talk.. similar to cli driven bug bounty hunting. Utlising automation.
+The subject of this talk.. similar to cli driven bug bounty hunting. Utilising automation.
 
 # the strategy 2.0 I'm working on
 
 I have a critera for applications:
+
 * newness
 * complexity
 * size
 
+Test applications that are complex, have multiple user types and APIs
+
 # LLMS / chat GPT
+
+You know of chatGPT and AI hype?
 
 chat bots.. predicting the next word on steroids
 
@@ -102,32 +105,141 @@ what are LLMs -> garbage in / garbage out
 
 there strengths and weakness'
 
-hallucination or bullshit?
+hallucination or bulls***?
 
-# --->
+# finding targets using LLMs to filter
 
-take a list of target domains from <github link>
-optionally expand out more targets using subdomain enumeration
+https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/main/data/domains.txt
 
-# target discovery : need in a haystack
+```
+api.clearpay.com
+clearpay.co.uk
+clearpay.com
+developers.afterpay.com
+afterpay.com
+mobileapi.afterpay.com
+mobileapi.clearpay.com
+portal.afterpay.com
+portal.clearpay.co.uk
+portal.clearpay.com
+portalapi.eu.clearpay.co.uk
+portalapi.us.afterpay.com
+start.1password.com
+bugbounty-ctf.1password.com
+aiven.io
+api.aiven.io
+console.aiven.io
+```
 
-1 .chunk the list and ask an LLM which targets fit a certain criteria [ ]
+```js
 
---> the LLM provider may include the ability to search the internet which will increase the usefulness of this approach.
+var domains = "https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/main/data/domains.txt"
 
-2 .fetch each URL... download the content into folders. Then ask an LLM about chunks of the downloaded content
+const axios = require('axios');
+const fs = require('fs');
+const Replicate = require('replicate');
 
---> show some code examples of this approach.
+const logFilePath = './logfile_text.txt'
+
+// Function to download the text file
+async function downloadFile(url, outputPath) {
+  const response = await axios({
+    url,
+    method: 'GET',
+    responseType: 'stream',
+  });
+
+  return new Promise((resolve, reject) => {
+    const writer = fs.createWriteStream(outputPath);
+    response.data.pipe(writer);
+    writer.on('finish', resolve);
+    writer.on('error', reject);
+  });
+}
+
+// Function to chunk URLs into 1024 MB chunks
+function chunkUrls(urls, chunkSize) {
+  const chunks = [];
+  let currentChunk = [];
+  let currentSize = 0;
+
+  for (const url of urls) {
+    const urlSize = Buffer.byteLength(url, 'utf8');
+    if (currentSize + urlSize > chunkSize) {
+      chunks.push(currentChunk);
+      currentChunk = [];
+      currentSize = 0;
+    }
+    currentChunk.push(url);
+    currentSize += urlSize;
+  }
+
+  if (currentChunk.length > 0) {
+    chunks.push(currentChunk);
+  }
+
+  return chunks;
+}
+
+// Function to call Replicate API
+async function callReplicateAPI(chunk) {
+  const replicate = new Replicate({
+    auth: process.env.REPLICATE_API_TOKEN,
+  });
+
+  const input = {
+    top_k: 0,
+    top_p: 0.9,
+    prompt: `which of these URLs is likely to allow public sign up - ideally with multiple account type... please return the URL without any superfluous information!!! \n\n${chunk.join('\n')}`,
+    max_tokens: 1024,
+    min_tokens: 0,
+    temperature: 0.6,
+    system_prompt: "You are a helpful assistant that follows instructions and does not provide text explanation.. only info requested.",
+    length_penalty: 1,
+    stop_sequences: "<|end_of_text|>,<|eot_id|>",
+    prompt_template: "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n",
+    presence_penalty: 1.15,
+    log_performance_metrics: false
+  };
+
+  for await (const event of replicate.stream("meta/meta-llama-3-70b-instruct", { input })) {
+    process.stdout.write(event.toString());
+    fs.appendFileSync(logFilePath, event.toString());
+  }
+}
+
+// Main function to execute the steps
+async function main() {
+  const fileUrl = domains;
+  const outputPath = 'urls.txt';
+
+  // Step 1: Download the text file
+  await downloadFile(fileUrl, outputPath);
+
+  // Step 2: Read the file and chunk the URLs
+  const fileContent = fs.readFileSync(outputPath, 'utf8');
+  const urls = fileContent.split('\n').filter(Boolean);
+  const chunkSize = 8000; // 1024 MB
+  const urlChunks = chunkUrls(urls, chunkSize);
+
+  // Step 3: Call the Replicate API for each chunk
+  for (const chunk of urlChunks) {
+    await callReplicateAPI(chunk);
+  }
+}
+
+// Execute the main function
+main().catch(console.error);
+```
 
 # finding bugs in applications
 
 Once you have discovered a target that fits your criteria...
 
 Using a browser forwarding proxy : burp suite : caido : mitmproxy
+ chunk the incoming request / response info and send to an LLM
 
---> chunk the incoming request / response info and send to an LLM
-
---> depending on the prompt you will get back different answers.
+depending on the prompt you will get back different answers.
 
 # challenges
 
@@ -138,9 +250,7 @@ the LLM will miss important info that get split apart by the chunks
 the speed and volume of data that passes through can be unwieldy and presents challenges.
     -> do you filter out bits before asking LLMs... if yes: which bits to filter out
 
-
 # caido 
-
 
 <img src="/assistant.png" />
 
@@ -150,58 +260,21 @@ the speed and volume of data that passes through can be unwieldy and presents ch
 
 <img src="/caido.png" />
 
+# replicate
+
 <img src="/replicate.png" />
 
 <img src="/replicate_node.png" />
 
 <img src="/replicate_prompt.png" />
 
-<img src="/workflow.png" />
+# caido worflow
 
+<img src="/workflow.png" />
 
 # bug finder prototype
 
-::
-
-Using caido as my browser forwarding proxy:
-
-I set up a "workflow" to log request and response info to a text file.
-
-I then have a node js script that monitors this file... a bit like using "tail -f"
-
-The incoming stream of text is split into chunks that correspond to the context length of the LLM i'm using.
-
-For each chunk 1 or more questions for the LLM are added to a queue.
-
-for each job in the queue the chunk + question are sent to replicate.com / llama LLM with 70b context.
-
-The results are returned.
-
-:: there is a filtering and processing step here to only show confident or interesting findings.
-
-These findings can be chunked and the process can happen again to keep filtering down the findings.
-
-...
-
-a final "output" is created that in theory has saved you time and shows things worthy of investigation.
-
-
-:::
-
-benefits of this approach are:
-
-    No easily detectable scanning or probing is happening. -> passive and largely undetectable from the website owners perspective
-    Your accessing web pages like a normal website user would. No excessive requests are being made that would trigger a WAF or bot defence.
-
-    ::
-
-    The findings from the bug finder LLM tool will help target yout time and efforts instead of having to throw the kitchen sink / spray the entire website
-
-
-
-
- # passive caido workflow
-
+# passive caido workflow
 
 ```js
 
@@ -252,7 +325,7 @@ export async function run({ request, response }, sdk) {
   }
 }
 ```
-
+# POC
 
 ```js
 

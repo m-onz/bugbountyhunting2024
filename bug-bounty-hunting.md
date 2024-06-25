@@ -37,8 +37,8 @@ There are public and private programs
 
 # types of programs
 
-private
-public
+* private
+* public
 
 private programs are exclusive and only selected people get to do them.
 
@@ -53,54 +53,46 @@ public programs are open to pretty much anybody.
 -> can access developers to ask questions
 -> can sometimes audit source code
 -> no other attackers are usually competing with you
--> the application has not been audited so more bugs and issues likely exist
+-> the application has not been audited by experts so more bugs and issues likely exist
 
 # bug bounty hunting
 
+-> real targets with real defence
 -> no low hanging fruit
 -> scanners don't reveal much
 -> hardened targets that may have gone through private programs
 -> huge competition globally and from seasoned full time experts
 
-# bug bounty strategies that don't work
+# bug bounty approaches
 
-Here are some strategies that deffinitely don't work for bug bounty hunting...
-picking targets at random.
-scanning.
-not being organised.
-getting bored and picking other targets. / giving up too easily.
-not having any criteria for applications to target.
-not taking the time to understand how an application works.
+# pentesting approach 
 
+-> pick a target and use common tools: burp suite / etc / http proxy / browser forwarding proxy
+I've mainly been doing approach and I don't think its very effective
+
+# cli driven lateral first scanning -> tomnomnom -> etc
+
+* see [tomnom](https://github.com/tomnomnom/meg)
+* see nuclei https://github.com/projectdiscovery/nuclei
+
+# trands in bug bounty hunting
+
+* asset discovery, nuclei
+* automation, use of AI
+* monitor applications for changes (active monitoring)
+
+# AI powered approach 
+
+the subject of this talk.. similar to cli driven bug bounty hunting. Utlising automation.
 
 # the strategy 2.0 I'm working on
 
 I have a critera for applications:
-    newness
-    complexity
-    size
+* newness
+* complexity
+* size
 
-# bug bounty approaches
-
-pentesting approach -> pick a target and use common tools: burp suite / etc / http proxy / browser forwarding proxy
-
-    heavy scanning of a target is possible on a willing target & with consent
-    bug bounty targets use web application firewalls, bot defence, rate limiting.
-    if a target blocks your IP or uses other defences the scan will be ineffective
-
-
-
-
-cli driven lateral first scanning -> tomnomnom -> etc
-
-AI powered approach <--- the subject of this talk
-
-# trands in bug bounty hunting
-
-asset discovery, nuclei
-automation, use of AI
-
-# LLMS
+# LLMS / chat GPT
 
 chat bots.. predicting the next word on steroids
 
@@ -147,9 +139,27 @@ the speed and volume of data that passes through can be unwieldy and presents ch
     -> do you filter out bits before asking LLMs... if yes: which bits to filter out
 
 
+# caido 
+
+
+<img src="/assistant.png" />
+
+<img src="/assistant_answer.png" />
+
+<img src="/caido-main.png" />
+
+<img src="/caido.png" />
+
+<img src="/replicate.png" />
+
+<img src="/replicate_node.png" />
+
+<img src="/replicate_prompt.png" />
+
+<img src="/workflow.png" />
+
+
 # bug finder prototype
-
-
 
 ::
 
@@ -353,23 +363,6 @@ If-None-Match: "667b067b-4d67"
 
 
 
-
-
-<img src="/assistant.png" />
-
-<img src="/assistant_answer.png" />
-
-<img src="/caido-main.png" />
-
-<img src="/caido.png" />
-
-<img src="/replicate.png" />
-
-<img src="/replicate_node.png" />
-
-<img src="/replicate_prompt.png" />
-
-<img src="/workflow.png" />
 
 
 

@@ -5,6 +5,21 @@
 
 bio goes here
 
+<img src="/assistant.png" />
+
+<img src="/assistant_answer.png" />
+
+<img src="/caido-main.png" />
+
+<img src="/caido.png" />
+
+<img src="/replicate.png" />
+
+<img src="/replicate_node.png" />
+
+<img src="/replicate_prompt.png" />
+
+<img src="/workflow.png" />
 
 # bug bounty hunting and VDP
 

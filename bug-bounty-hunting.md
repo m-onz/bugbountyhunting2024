@@ -3,30 +3,63 @@
 
 # about me
 
-I work in the analytics and tagging team within NLE / IA.
-I like web application security and AI.
-I'm a software developer, engineer and sometimes a mad scientist. 
-I've always been interested in infosec but never employed as my main job.
-I like programming, distributed systems, linux, BSD & much more.
+Stephen Monslow
+
+* alias: m-onz / monz
+
+* website: https://m-onz.net
+* github: https://github.com/m-onz
+
+* I work in the analytics and tagging team within NLE / IA.
+* I like infosec/cyber, web application security and AI.
+* currently studying to become a certified burp suite practioner 
+* I'm a software developer, engineer and sometimes a mad scientist. 
+* I've always been interested in infosec but never employed as my main job.
+* I like programming, distributed systems, linux, BSD & much more.
+
+# some projects I've built in the past
+
+* turning target system controlled by a webpage from any device. Attempted to add bullet tracking using computer vision.
+* drone detection systems using computer vision and machine listening
+* a p2p data privacy platform including crypto architecture
+
+# some of my accomplishments 
+
+* became the lead front engineer for an aviation software company
+* fixed a horrendous micro-service architecture for a fintech company
+* fixed a serverless architecture for a linkedin competitor
 
 # In my spare time:
 
-I'm part of the algorave scene as an audio visual artist and VJ
-I run an algorithmic music event and make visuals using open source software: puredata.info
-I also make music the old fashion way and play many instruments including the drums and sax.
+* I'm part of the algorave scene as an audio visual artist and VJ
+* I run an algorithmic music event and make visuals using open source software: puredata.info
+* I also make music the old fashion way and play many instruments including the drums and sax.
 
 # Bug bounty hunting
 
-I am a very unsuccessful bug bounty hunter using it to learn and understand web application security.
-I will tell all the ways I've been unsuccessful and hopefully it will help you avoid my mistakes!
+* So far I am a very unsuccessful bug bounty hunter using it to learn and understand web application security.
+* I will tell all the ways I've been unsuccessful and hopefully it will help you avoid my mistakes!
+
+I am hopefully turning a corner this year and on the brink of significantly improving my chances of getting bounties.
 
 # bug bounty hunting and VDP
+
+Bug bounty hunting as part of VDP: vulnerability dislosure programs.
+
+Sometimes called "crowd sourced" security.
 
 I think it started as safe haven for ethical hackers to report security findings but has now turned into a vibrant eco-system & booming business.
 
 There are bug bounty platforms that act as the mediators between companies and hackers.
 
 bug bounties are awarded to those who find serious issues.
+
+# some bug bounty platforms
+
+* https://www.hackerone.com/
+* https://www.bugcrowd.com/
+* https://www.yeswehack.com/
+* https://www.openbugbounty.org/
 
 There are public and private programs
 
@@ -38,6 +71,13 @@ There are public and private programs
 private programs are exclusive and only selected people get to do them.
 
 public programs are open to pretty much anybody.
+
+# the bug bounty attack surface
+
+* web <-- this is all I focus on.
+* binary
+* mobile
+* source code review
 
 # differences between pentesting and bug bounty hunting
 
@@ -69,10 +109,10 @@ follow a web application pentesting methodology.
 
 A lateral approach where you scan many targets not just a single one.
 
-* see [tomnom](https://github.com/tomnomnom/meg)
+* see [tomnomnom](https://github.com/tomnomnom/meg)
 * see nuclei https://github.com/projectdiscovery/nuclei
 
-# trands in bug bounty hunting
+# trends in bug bounty hunting
 
 * targeting api's (IDOR)
 * asset discovery, nuclei
@@ -87,25 +127,39 @@ The subject of this talk.. similar to cli driven bug bounty hunting. Utilising a
 
 I have a critera for applications:
 
-* newness
+* multiple user accounts
 * complexity
+* newness
 * size
 
 Test applications that are complex, have multiple user types and APIs
 
+# vulnerabilities I'm looking for
+
+* web cache poisening and http request smuggling
+* IDOR - insecure direct object reference
+* application & architecture issues
+* broken access control
+
 # LLMS / chat GPT
 
-You know of chatGPT and AI hype?
+* You know of chatGPT and AI hype?
+* chat bots.. predicting the next word on steroids
+* emergent capabilities -> the abillity to compute
+* can handle inconsistent input -> but always gives inconsistent output
 
-chat bots.. predicting the next word on steroids
+# what are LLMs
 
-emergent capabilities ->
+* garbage in / garbage out generators
+* you must eye ball and verify the output
 
-what are LLMs -> garbage in / garbage out
-
-there strengths and weakness'
+# there strengths and weakness
 
 hallucination or bulls***?
+
+# web bug bounty hunting using LLMs
+
+My latest efforts...
 
 # finding targets using LLMs to filter
 
@@ -130,6 +184,8 @@ aiven.io
 api.aiven.io
 console.aiven.io
 ```
+
+# finding targets using LLM
 
 ```js
 
@@ -252,13 +308,17 @@ the speed and volume of data that passes through can be unwieldy and presents ch
 
 # caido 
 
-<img src="/assistant.png" />
+A lightweight rust application... run from the cli. Then access via a web page locally or from a remote VPS over SSH: )
 
-<img src="/assistant_answer.png" />
+<img src="/caido.png" />
 
 <img src="/caido-main.png" />
 
-<img src="/caido.png" />
+# caido built in AI assistant
+
+<img src="/assistant.png" />
+
+<img src="/assistant_answer.png" />
 
 # replicate
 
@@ -325,7 +385,9 @@ export async function run({ request, response }, sdk) {
   }
 }
 ```
-# POC
+# bug bounty hunting using LLMs
+
+the latest effotr...
 
 ```js
 
@@ -399,9 +461,7 @@ process.stdin.on('end', () => {
 
 ```
 
-
-
-
+# output from the tool...
 
 ```
   2024-06-25T20:48:49.766085Z  INFO executor:0|arbiter:6 js|sdk: Request Body: GET / HTTP/1.1
@@ -433,10 +493,32 @@ If-None-Match: "667b067b-4d67"
 8. The Host header does not match the domain name in the URL, which could potentially indicate a DNS spoofing attack or a request forgery attempt.
 
 ```
+# ...
 
+# Alternative implementations of this basic idea:
 
+These are other valid alternative implementations...
 
+* mitmproxy -> python adapter -> send to replicate.com / or custom self hosted LLMs
+* burp suite -> burp suite extension -> send to replicaite / or custom self hosted LLMs
 
+# challenges with self hosting LLMs
+
+* Using replicate.com allows me to use a much larger LLM (70+ billion parameters) and get back a timely response.
+* Self hosting LLMs or running on personal computers is more private but the latency is greater. 
+* Even a 7 billion parameter on CPU or midrange GPU can take minutes to respond... this is untennable.
+
+caido has a client / server model that allows me to run it on a remote VPS. So for future versions I could 
+ run my own machine learning models using [ollama.ai](https://ollama.com/). The proxying and AI runs on the
+ remote vPS and the caido interface is accessed over SSH...
+
+```sh
+ssh -L <local port>:127.0.0.1:8080 <username>@<your vps IP address>
+```
+
+# Conclusion
+
+I am finally making head way and I hope to refine and improve my tool and release it as an open source project.
 
 
 

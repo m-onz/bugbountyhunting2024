@@ -157,6 +157,17 @@ Test applications that are complex, have multiple user types and APIs
 
 hallucination or bulls***?
 
+# what I'm using LLMs for
+
+I don't think LLMs are as useful as they are made out to be but can be useful in some narrow use cases... and as part of automation.
+
+* explaining things
+* handling inconsistent input
+* evaluating their effectiveness
+* condensing large text output into smaller digestable chunks
+* automating things that only humans have been previously able to do
+* working with inwieldy amounts of data / text and improving productivity
+
 # web bug bounty hunting using LLMs
 
 My latest efforts...
@@ -387,7 +398,7 @@ export async function run({ request, response }, sdk) {
 ```
 # bug bounty hunting using LLMs
 
-the latest effotr...
+<3 unix pipes!
 
 ```js
 
@@ -494,6 +505,17 @@ If-None-Match: "667b067b-4d67"
 
 ```
 # ...
+
+# previous attempts that I havn't got time to show...
+
+I've built a prototype that I don't have time to show in detail...
+
+* Downloading JS from websites.
+* splitting into functions using AST, static code analysis
+* asking an LLM about each code
+
+The issue with this (which is also the same issue with my current caido based tool) is that LLMs are shown functions or info in isolation.
+This means that the it doesn't see the wider context of the application and cannot make any assessment of the big picture... yet.
 
 # Alternative implementations of this basic idea:
 

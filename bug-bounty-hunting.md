@@ -328,11 +328,11 @@ A lightweight rust application... run from the cli. Then access via a web page l
 
 <img src="/replicate_prompt.png" />
 
+# bug finder prototype
+
 # caido worflow
 
 <img src="/workflow.png" />
-
-# bug finder prototype
 
 # passive caido workflow
 

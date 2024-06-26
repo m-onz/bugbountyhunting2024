@@ -1,7 +1,7 @@
 
-# bug bounty hunting with LLMs
+# Bug bounty hunting with LLMs
 
-# about me
+# About me
 
 Stephen Monslow
 
@@ -17,13 +17,13 @@ Stephen Monslow
 * I've always been interested in infosec but never employed as my main job.
 * I like programming, distributed systems, linux, BSD & much more.
 
-# some projects I've built in the past
+# Some projects I've built in the past
 
 * turning target system controlled by a webpage from any device. Attempted to add bullet tracking using computer vision.
 * drone detection systems using computer vision and machine listening
 * a p2p data privacy platform including crypto architecture
 
-# some of my accomplishments 
+# Some of my accomplishments 
 
 * I became the lead front engineer for an aviation software company
 * I fixed a horrendous micro-service architecture for a fintech company
@@ -42,7 +42,7 @@ Stephen Monslow
 
 I am hopefully turning a corner this year and on the brink of significantly improving my chances of getting bounties.
 
-# bug bounty hunting and VDP
+# Bug bounty hunting and VDP
 
 Bug bounty hunting as part of VDP: vulnerability dislosure programs.
 
@@ -54,7 +54,7 @@ There are bug bounty platforms that act as the mediators between companies and h
 
 bug bounties are awarded to those who find serious issues.
 
-# some bug bounty platforms
+# Some bug bounty platforms
 
 * https://www.hackerone.com/
 * https://www.bugcrowd.com/
@@ -63,7 +63,7 @@ bug bounties are awarded to those who find serious issues.
 
 There are public and private programs
 
-# types of programs
+# Types of programs
 
 * private
 * public
@@ -72,37 +72,37 @@ private programs are exclusive and only selected people get to do them.
 
 public programs are open to pretty much anybody.
 
-# the bug bounty attack surface
+# The bug bounty attack surface
 
 * web <-- this is all I focus on.
 * binary
 * mobile
 * source code review
 
-# differences between pentesting and bug bounty hunting
+# Differences between pentesting and bug bounty hunting
 
-# pentesting
+# Pentesting
 
--> low hanging fruit exists
--> scanners can be useful
--> can access developers to ask questions
--> can sometimes audit source code
--> no other attackers are usually competing with you
--> the application has not been audited by experts so more bugs and issues likely exist
+* low hanging fruit exists
+* scanners can be useful
+* can access developers to ask questions
+* can sometimes audit source code
+* no other attackers are usually competing with you
+* the application has not been audited by experts so more bugs and issues likely exist
 
 # bug bounty hunting
 
--> real targets with real defence
--> no low hanging fruit
--> scanners don't reveal much
--> hardened targets that may have gone through private programs
--> huge competition globally and from seasoned full time experts
+* real targets with real defence
+* no low hanging fruit
+* scanners don't reveal much
+* hardened targets that may have gone through private programs
+* huge competition globally and from seasoned full time experts
 
 # bug bounty approaches
 
 # pentesting approach 
 
--> pick a target and use common tools: burp suite / etc / http proxy / browser forwarding proxy
+Pick a target and use common tools: burp suite / etc / http proxy / browser forwarding proxy
 follow a web application pentesting methodology.
 
 # cli driven lateral first scanning -> tomnomnom -> etc
@@ -112,7 +112,7 @@ A lateral approach where you scan many targets not just a single one.
 * see [tomnomnom](https://github.com/tomnomnom/meg)
 * see nuclei https://github.com/projectdiscovery/nuclei
 
-# trends in bug bounty hunting
+# Trends in bug bounty hunting
 
 * targeting api's (IDOR)
 * asset discovery, nuclei
@@ -123,7 +123,7 @@ A lateral approach where you scan many targets not just a single one.
 
 The subject of this talk.. similar to cli driven bug bounty hunting. Utilising automation.
 
-# the strategy 2.0 I'm working on
+# The strategy 2.0 I'm working on
 
 I have a critera for applications:
 
@@ -134,7 +134,7 @@ I have a critera for applications:
 
 Test applications that are complex, have multiple user types and APIs
 
-# vulnerabilities I'm looking for
+# Vulnerabilities I'm looking for
 
 * web cache poisening and http request smuggling
 * IDOR - insecure direct object reference
@@ -148,16 +148,16 @@ Test applications that are complex, have multiple user types and APIs
 * emergent capabilities -> the abillity to compute
 * can handle inconsistent input -> but always gives inconsistent output
 
-# what are LLMs
+# What are LLMs
 
 * garbage in / garbage out generators
 * you must eye ball and verify the output
 
-# there strengths and weakness
+# LLM strengths and weakness
 
 hallucination or bulls***?
 
-# what I'm using LLMs for
+# What I'm using LLMs for
 
 I don't think LLMs are as useful as they are made out to be but can be useful in some narrow use cases... and as part of automation.
 
@@ -168,11 +168,11 @@ I don't think LLMs are as useful as they are made out to be but can be useful in
 * automating things that only humans have been previously able to do
 * working with inwieldy amounts of data / text and improving productivity
 
-# web bug bounty hunting using LLMs
+# Web bug bounty hunting using LLMs
 
 My latest efforts...
 
-# finding targets using LLMs to filter
+# Finding targets using LLMs to filter
 
 https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/main/data/domains.txt
 
@@ -196,7 +196,7 @@ api.aiven.io
 console.aiven.io
 ```
 
-# finding targets using LLM
+# Finding targets using LLM
 
 ```js
 
@@ -299,7 +299,7 @@ async function main() {
 main().catch(console.error);
 ```
 
-# finding bugs in applications
+# Finding bugs in applications
 
 Once you have discovered a target that fits your criteria...
 
@@ -308,7 +308,7 @@ Using a browser forwarding proxy : burp suite : caido : mitmproxy
 
 depending on the prompt you will get back different answers.
 
-# challenges
+# Challenges
 
 the context length of an LLM -> you * will * have to chunk data
 
@@ -317,7 +317,7 @@ the LLM will miss important info that get split apart by the chunks
 the speed and volume of data that passes through can be unwieldy and presents challenges.
     -> do you filter out bits before asking LLMs... if yes: which bits to filter out
 
-# caido 
+# Caido 
 
 A lightweight rust application... run from the cli. Then access via a web page locally or from a remote VPS over SSH: )
 
@@ -325,13 +325,13 @@ A lightweight rust application... run from the cli. Then access via a web page l
 
 <img src="/caido-main.png" />
 
-# caido built in AI assistant
+# Caido's built in AI assistant
 
 <img src="/assistant.png" />
 
 <img src="/assistant_answer.png" />
 
-# replicate
+# Replicate
 
 <img src="/replicate.png" />
 
@@ -339,13 +339,13 @@ A lightweight rust application... run from the cli. Then access via a web page l
 
 <img src="/replicate_prompt.png" />
 
-# bug finder prototype
+# Bug finder prototype
 
-# caido worflow
+# Caido worflow's
 
 <img src="/workflow.png" />
 
-# passive caido workflow
+# Passive caido workflow
 
 ```js
 
@@ -396,7 +396,7 @@ export async function run({ request, response }, sdk) {
   }
 }
 ```
-# bug bounty hunting using LLMs
+# Bug bounty hunting using LLMs
 
 <3 unix pipes!
 
@@ -506,13 +506,13 @@ If-None-Match: "667b067b-4d67"
 ```
 # ...
 
-# previous attempts that I havn't got time to show...
+# My previous attempts that I havn't got time to show...
 
 I've built a prototype that I don't have time to show in detail...
 
 * Downloading JS from websites.
 * splitting into functions using AST, static code analysis
-* asking an LLM about each code
+* asking an LLM about each bit of code
 
 The issue with this (which is also the same issue with my current caido based tool) is that LLMs are shown functions or info in isolation.
 This means that the it doesn't see the wider context of the application and cannot make any assessment of the big picture... yet.
@@ -524,7 +524,7 @@ These are other valid alternative implementations...
 * mitmproxy -> python adapter -> send to replicate.com / or custom self hosted LLMs
 * burp suite -> burp suite extension -> send to replicaite / or custom self hosted LLMs
 
-# challenges with self hosting LLMs
+# Challenges with self hosting LLMs
 
 * Using replicate.com allows me to use a much larger LLM (70+ billion parameters) and get back a timely response.
 * Self hosting LLMs or running on personal computers is more private but the latency is greater. 

@@ -25,9 +25,9 @@ Stephen Monslow
 
 # some of my accomplishments 
 
-* became the lead front engineer for an aviation software company
-* fixed a horrendous micro-service architecture for a fintech company
-* fixed a serverless architecture for a linkedin competitor
+* I became the lead front engineer for an aviation software company
+* I fixed a horrendous micro-service architecture for a fintech company
+* I fixed a serverless architecture for a linkedin competitor
 
 # In my spare time:
 
